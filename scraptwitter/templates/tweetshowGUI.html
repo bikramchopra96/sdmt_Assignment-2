@@ -1,0 +1,36 @@
+{% extends 'home.html'%}
+{% block content %}
+<h1 align="center">Your Tweets</h1>
+<div align="right"><a href="/tpost" class="btn btn-primary" style="margin-right:5%;font-size:1.5rem">Post New Tweet</a></div>
+<br />
+
+<div class="card-deck">
+    {% for record in records %}
+  <div class="card bg-light col-lg-5" style="background-color:#e6e6e6;padding:2%;margin:2%">
+      <h5 class="card-title" style="font-size:2rem">{{record.tweet}}</h5>
+      <div class="card-footer"   style="font-size:1.3rem">Tweet id {{ record.tweetId }}<span style="float:right">{{ record.created_at }}</span></div>
+  </div>
+    {% endfor %}
+</div>
+<!--<table class="table table-striped table-bordered table-sm">-->
+<!--    <thead class="thead-dark">-->
+<!--    <tr>-->
+<!--        <th>Date Posted</th>-->
+<!--        <th>Tweet Id</th>-->
+<!--        <th>Tweet</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--{% for record in records %}-->
+<!--    <tr>-->
+<!--        <td>{{ record.created_at }}</td>-->
+<!--        <td>{{ record.tweetId }}</td>-->
+<!--        <td>{{ record.tweet }}</td>-->
+<!--    </tr>-->
+<!--{% endfor %}-->
+<!--    </tbody>-->
+<!--</table>-->
+<br>
+<br>
+{{ data }}
+{% endblock %}
