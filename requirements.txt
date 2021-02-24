@@ -7,3 +7,4 @@ django-crispy-forms
 numpy
 psycopg2
 tweepy
+praw
