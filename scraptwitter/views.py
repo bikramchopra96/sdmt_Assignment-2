@@ -1,11 +1,13 @@
 from django.shortcuts import render,redirect
-from .cred import keys
-from .models import TwitterModel
+from .cred import keys,redit_keys
+from .models import TwitterModel,RedditModel
 import tweepy
 from django.db.models import Max
+import datetime
+import praw
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'specific_home.html')
 
 def TwitterShowData(request):
     TESTING = False
@@ -60,3 +62,39 @@ def TwitterPostData(request):
         return redirect('/tshow/')
 
     return render(request, "tweetpost.html")
+
+
+def RedditShowData(request):
+    posts = RedditModel.objects.all().order_by('-created_at')
+    return render(request, 'postshowGUI.html',{'records':posts})
+
+def RedditPostData(request):
+    if (request.method == 'POST'):
+        data = request.POST
+        print(data,data['title'],data['post'])
+        TESTING = False
+        if not TESTING:
+            # Authenticating with reddit
+            reddit = praw.Reddit(client_id=redit_keys['client_id'],
+                                 client_secret=redit_keys['client_secret'],
+                                 user_agent=redit_keys['user_agent'],
+                                 redirect_uri=redit_keys['redirect_uri'],
+                                 refresh_token=redit_keys['refresh_token'])
+
+            subr = 'pythonsandlot'
+            subreddit = reddit.subreddit(subr)
+            title = data['title']
+            selftext = data['post']
+            reddit.validate_on_submit = True
+            print(subreddit.submit(title, selftext=selftext))
+
+        #-------Saving the post to db---------
+        instance = RedditModel()
+        instance.title = data['title']
+        instance.post = data['post']
+        instance.created_at = datetime.datetime.now()
+        instance.save()
+        print('Saved to db')
+        return redirect('/rshow/')
+
+    return render(request, "rpost.html")

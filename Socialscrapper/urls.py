@@ -21,4 +21,6 @@ urlpatterns = [
     path('',views.home),
     path('tshow/',views.TwitterShowData),
     path('tpost/', views.TwitterPostData),
+    path('rshow/',views.RedditShowData),
+    path('rpost/', views.RedditPostData),
 ]

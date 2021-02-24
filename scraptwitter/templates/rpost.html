@@ -1,0 +1,20 @@
+{% extends 'home.html'%}
+{% block content %}
+<div class="container" >
+    <br/>
+    <h2 align="center">Post New Tweet</h2>
+    <br/>
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="title"><h4>Title</h4></label>
+        <input  id="title" type="text" name="title"  class="form-control" placeholder="Title"/>
+        <label for="post"><h4>Post</h4></label>
+        <textarea  id="post" style="height:100px" type="text" name="post"  class="form-control" placeholder="Your text"></textarea>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-info" >Proceed</button>
+
+</div>
+
+{% endblock %}

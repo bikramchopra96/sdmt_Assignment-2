@@ -1,0 +1,18 @@
+{% extends 'home.html'%}
+{% block content %}
+<h1 align="center">Your Reddit Posts</h1>
+<div align="right"><a href="/rpost" class="btn btn-primary" style="margin-right:5%;font-size:1.5rem">Add New Post</a></div>
+<br />
+
+<div class="card-deck">
+    {% for record in records %}
+  <div class="card bg-light col-lg-5" style="background-color:#e6e6e6;padding:1% 2% 2% 2%;margin:2%">
+      <h3 class="card-title" style="font-size:2rem">{{record.title}}</h3>
+      <h5 class="card-body" style="font-size:1.7rem">{{record.post}}</h5>
+      <div class="card-footer"   style="font-size:1.3rem"><span style="float:right">{{ record.created_at }}</span></div>
+  </div>
+    {% endfor %}
+</div>
+<br>
+<br>
+{% endblock %}
